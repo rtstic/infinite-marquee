@@ -9,8 +9,7 @@ const PRODUCTION = process.env.NODE_ENV === "production";
 // Config entrypoint files
 const ENTRY_POINTS = [
   "src/index.ts",
-  "src/styles/global.css",
-  "src/sample/test.ts",
+  "src/styles.css",
 ];
 
 // Config dev serving

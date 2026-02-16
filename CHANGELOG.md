@@ -1,5 +1,11 @@
 # @fynd-design-engineering/cdn-starter
 
+## 0.0.1
+
+### Patch Changes
+
+- added files
+
 ## 1.0.7
 
 ### Patch Changes

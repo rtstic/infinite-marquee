@@ -1,0 +1,50 @@
+ [rtstic-marquee='wrapper'] {
+     overflow: hidden;
+ }
+
+ [rtstic-marquee='list'] {
+     display: flex;
+     width: max-content;
+     animation: scroll var(--duration) linear infinite;
+     will-change: transform;
+ }
+
+ [rtstic-marquee='item'] {
+     white-space: nowrap;
+     flex-shrink: 0;
+ }
+
+ @keyframes scroll {
+     0% {
+         transform: translateX(0);
+     }
+
+     100% {
+         transform: translateX(calc(-100% / var(--multiplier)));
+     }
+ }
+
+ /* Pause on hover (optional) */
+ [rtstic-marquee='wrapper']:hover [rtstic-marquee='list'] {
+     animation-play-state: paused;
+ }
+
+
+
+ /* For demo */
+ .sample-item {
+     width: 200px;
+     height: 40px;
+     background: rgb(107, 203, 38);
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     margin-left: 10px;
+     margin-right: 10px;
+ }
+
+ body {
+     margin: 0px;
+     text-align: center;
+ }

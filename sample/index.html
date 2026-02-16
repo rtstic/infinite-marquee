@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rtstic-marquee Example</title>
+
+    <!-- Link to external marquee CSS -->
+    <link href="http://localhost:3000/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <h1>Infinite Marquee Example</h1>
+
+    <!-- 
+        Marquee Structure:
+        - wrapper: Container with overflow hidden
+        - list: Flex container that animates
+        - items: Individual content pieces
+    -->
+
+    <div rtstic-marquee="wrapper">
+        <div rtstic-marquee="list">
+            <!-- Add your items here -->
+            <div rtstic-marquee="item">
+                <div class="sample-item">
+                    Sample item 1
+                </div>
+            </div>
+            <div rtstic-marquee="item">
+                <div class="sample-item">
+                    Sample item 2
+                </div>
+            </div>
+            <div rtstic-marquee="item">
+                <div class="sample-item">
+                    Sample item 3
+                </div>
+            </div>
+            <div rtstic-marquee="item">
+                <div class="sample-item">
+                    Sample item 4
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to external marquee JavaScript -->
+    <script defer src="http://localhost:3000/index.js"></script>
+</body>
+
+</html>

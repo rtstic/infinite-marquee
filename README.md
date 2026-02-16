@@ -1,183 +1,126 @@
-# Your Project
+# infinite-marquee
 
-> **Note:** This README is a starting point.  
-> Update it with your project-specific details, file explanations, and logic descriptions to make it more informative and maintainable.
+A simple, lightweight infinite marquee component. Create smooth scrolling text animations with ease.
 
-This project was generated using [**CDN-Starter**](https://www.npmjs.com/package/create-cdn-starter) — a modern template for building and deploying TypeScript/JavaScript code to Webflow or any CDN environment.  
-You can now customize it with your own scripts, utilities, and design logic.
+## Installation
 
----
+### Via CDN (Recommended for quick setup)
 
-## Getting Started
+Include the CSS and JavaScript files from jsDelivr CDN:
 
-### 1. Install Dependencies
+```html
+<!-- CSS -->
+<link href="https://cdn.jsdelivr.net/npm/@rtstic-dev/infinite-marquee@latest/dist/styles.css" rel="stylesheet" type="text/css" />
 
-Run the following command inside your project folder:
-
-```bash
-pnpm install
+<!-- JavaScript -->
+<script defer src="https://cdn.jsdelivr.net/npm/@rtstic-dev/infinite-marquee@latest/dist/index.js"></script>
 ```
 
-This will install all required development and build dependencies.
+### Via NPM
 
----
+```bash
+npm install @rtstic-dev/infinite-marquee
+```
 
-### 2. Update `package.json`
+Then import in your project:
 
-After installation, open the `package.json` file and fill in your own details:
+```javascript
+import { initializeMarquee } from '@rtstic-dev/infinite-marquee';
+import '@rtstic-dev/infinite-marquee/dist/styles.css';
 
-```json
+initializeMarquee();
+```
+
+## Basic HTML Structure
+
+Create a marquee with the following structure:
+
+```html
+<div rtstic-marquee="wrapper">
+    <div rtstic-marquee="list">
+        <div rtstic-marquee="item">Item 1</div>
+        <div rtstic-marquee="item">Item 2</div>
+        <div rtstic-marquee="item">Item 3</div>
+        <div rtstic-marquee="item">Item 4</div>
+    </div>
+</div>
+```
+
+### Structure Breakdown
+
+- **wrapper**: Outer container that hides overflow
+- **list**: Flex container that holds all items and animates
+- **item**: Individual content pieces
+
+## Complete Example
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Marquee</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/@rtstic-dev/infinite-marquee@latest/dist/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Marquee Example</h1>
+    
+    <div rtstic-marquee="wrapper">
+        <div rtstic-marquee="list">
+            <div rtstic-marquee="item">⭐ Item 1</div>
+            <div rtstic-marquee="item">⭐ Item 2</div>
+            <div rtstic-marquee="item">⭐ Item 3</div>
+            <div rtstic-marquee="item">⭐ Item 4</div>
+        </div>
+    </div>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/@rtstic-dev/infinite-marquee@latest/dist/index.js"></script>
+</body>
+</html>
+```
+
+## Configuration
+
+The marquee initializes automatically with default settings. To customize, pass a config object:
+
+```html
+<script defer src="marquee.js"></script>
+<script>
+    initializeMarquee({
+        multiplier: 5,      // Number of times to duplicate content (default: 4)
+        duration: 80,       // Total animation duration in seconds (default: 100)
+        selector: "[rtstic-marquee='list']"  // Element selector (default as shown)
+    });
+</script>
+```
+
+## Default Configuration
+
+```javascript
 {
-  "name": "your-project-name",
-  "version": "0.0.0",
-  "description": "brief description of your project",
-  "homepage": "your-project-homepage",
-  "license": "MIT",
-  "keywords": [],
-  "author": {
-    "name": "your-name",
-    "url": "your-website-or-profile"
-  }
+    multiplier: 4,
+    duration: 100,
+    selector: "[rtstic-marquee='list']"
 }
 ```
 
-Only update the above fields.  
-Other configurations are pre-optimized for TypeScript builds, linting, and npm releases.
+## Features
 
----
+✨ **Smooth infinite scrolling** - Content loops seamlessly
+🎨 **Customizable** - Control speed and duplication count
+⏸️ **Hover pause** - Animation pauses on hover
+🚀 **Lightweight** - Minimal code, maximum performance
+🎯 **Easy to use** - Simple HTML attributes
 
-### 3. Edit Source Files
+## Tips
 
-All editable files are inside the `src/` folder.  
-This is where you add your scripts, components, utilities, and styles.
-
-Example workflow:
-
-- Modify `src/index.ts` or create new folders like `src/home/` or `src/utils/`.
-- Whenever you add a new file, include it in `bin/build.js` under `ENTRY_POINTS`.
-
-```js
-const ENTRY_POINTS = [
-  "src/index.ts",
-  "src/styles/global.css",
-  "src/home/index.ts"
-];
-```
-
-Any file listed here will be automatically compiled into the `dist/` folder when you build.
-
----
-
-## Available Commands
-
-### Development
-
-Start a local development environment:
-
-```bash
-pnpm dev
-```
-
-This command compiles your code in real time and serves it at:
-[http://localhost:3000](http://localhost:3000)
-
----
-
-### Build for Production
-
-Generate optimized and minified builds:
-
-```bash
-pnpm build
-```
-
-Output files are created inside the `dist/` directory.  
-These are the files you can upload to your CDN or include in Webflow.
-
----
-
-### Linting and Formatting
-
-Maintain code consistency and quality:
-
-```bash
-pnpm lint        # Check for lint issues
-pnpm lint:fix    # Auto-fix lint issues
-pnpm format      # Format code using Prettier
-pnpm check       # Type check using TypeScript
-```
-
----
-
-### Versioning and Releasing
-
-Handle versioning and publishing to npm:
-
-```bash
-pnpm changeset
-pnpm changeset version
-pnpm release
-```
-
-Run these sequentially to version and release your package.
-
----
-
-### Generate CDN Links
-
-After publishing, run:
-
-```bash
-pnpm cdn
-```
-
-This displays ready-to-use `<script>` or `<link>` tags pointing to the latest version of your npm package.
-
-Example:
-
-```html
-<script defer src="https://cdn.jsdelivr.net/npm/your-package-name@latest/dist/index.js"></script>
-```
-
----
-
-## Folder Structure
-
-```
-your-project/
-├── src/             # All editable source files
-│   ├── index.ts
-│   ├── styles/
-│   │   └── global.css
-│   └── home/
-│       └── index.ts
-├── bin/             # Build configuration (edit ENTRY_POINTS here)
-│   └── build.js
-├── dist/            # Generated build output (do not edit)
-├── package.json
-├── tsconfig.json
-├── eslint.config.js
-└── README.md
-```
-
-**Important:**  
-Every file you create inside `src/` must be listed in `bin/build.js` under `ENTRY_POINTS` to be compiled into `dist/`.
-
----
-
-## Notes
-
-- Keep editable files limited to the `src/` directory.
-- Avoid manual edits in `dist/` — it’s auto-generated.
-- Use **semantic versioning** (`major.minor.patch`) for clear release cycles.
-- Always commit changes before running a release.
-
----
+- Add more items for a longer marquee
+- Increase `multiplier` for slower scrolling feel
+- Decrease `duration` for faster animation
+- Customize item styles with CSS classes inside each item
 
 ## License
 
-This project is licensed under the [MIT License](./LICENSE).
-
----
-
-Built using [**CDN-Starter**](https://www.npmjs.com/package/create-cdn-starter).
+MIT

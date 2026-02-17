@@ -4,7 +4,7 @@ import { readFileSync } from "fs";
 
 // Config
 const BUILD_DIRECTORY = "dist";
-const PACKAGE_NAME = "@rtstic-dev/infinite-marquee";
+const PACKAGE_NAME = "@rtstic.dev/infinite-marquee";
 
 /**
  * Gets package version from package.json

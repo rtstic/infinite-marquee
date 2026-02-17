@@ -1,6 +1,6 @@
 {
   "name": "@rtstic.dev/infinite-marquee",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A smooth, glitch-free infinite marquee component using pure CSS animations and vanilla JavaScript.",
   "license": "MIT",
   "keywords": [

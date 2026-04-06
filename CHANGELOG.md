@@ -1,5 +1,11 @@
 # @fynd-design-engineering/cdn-starter
 
+## 1.0.0
+
+### Major Changes
+
+- Main release with safari and multiple marquee support
+
 ## 0.0.4
 
 ### Patch Changes

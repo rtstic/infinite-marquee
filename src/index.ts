@@ -12,7 +12,7 @@ declare global {
 
 const DEFAULT_CONFIG: MarqueeConfig = {
     multiplier: 4,
-    duration: 100,
+    duration: 150,
     selector: "[rtstic-marquee='list']"
 };
 
@@ -28,9 +28,10 @@ function initializeSingleMarquee(marquee: HTMLElement, config: MarqueeConfig): b
         return false;
     }
 
-    let duplicatedHTML: string = '';
-    for (let i = 0; i < config.multiplier; i++) {
-        duplicatedHTML += originalHTML;
+    // First copy is visible to screen readers, rest are hidden
+    let duplicatedHTML: string = originalHTML;
+    for (let i = 1; i < config.multiplier; i++) {
+        duplicatedHTML += `<div aria-hidden="true" style="display:contents">${originalHTML}</div>`;
     }
 
     marquee.innerHTML = duplicatedHTML;
@@ -50,7 +51,7 @@ function initializeMarquee(config: MarqueeConfig = DEFAULT_CONFIG): boolean {
         }
 
         if (!config.duration || config.duration <= 0) {
-            log('warn', 'duration should be greater than 0, using default of 100');
+            log('warn', 'duration should be greater than 0, using default of 150');
             config.duration = DEFAULT_CONFIG.duration;
         }
 
@@ -63,7 +64,6 @@ function initializeMarquee(config: MarqueeConfig = DEFAULT_CONFIG): boolean {
 
         let successCount = 0;
         marquees.forEach((marquee, index) => {
-            // Allow per-instance overrides via data attributes
             const instanceConfig = { ...config };
             const dataMultiplier = marquee.dataset.multiplier;
             const dataDuration = marquee.dataset.duration;

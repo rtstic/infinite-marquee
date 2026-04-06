@@ -1,5 +1,11 @@
 # @fynd-design-engineering/cdn-starter
 
+## 1.0.1
+
+### Patch Changes
+
+- added accessibility controls
+
 ## 1.0.0
 
 ### Major Changes

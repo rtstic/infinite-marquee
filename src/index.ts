@@ -21,6 +21,27 @@ function log(level: 'warn' | 'error' | 'log', message: string): void {
     console[level](`[rtstic-marquee] ${message}`);
 }
 
+function initializeSingleMarquee(marquee: HTMLElement, config: MarqueeConfig): boolean {
+    const originalHTML: string = marquee.innerHTML;
+    if (!originalHTML.trim()) {
+        log('warn', 'Marquee element is empty, skipping');
+        return false;
+    }
+
+    let duplicatedHTML: string = '';
+    for (let i = 0; i < config.multiplier; i++) {
+        duplicatedHTML += originalHTML;
+    }
+
+    marquee.innerHTML = duplicatedHTML;
+
+    const translateEnd = -100 / config.multiplier;
+    marquee.style.setProperty('--translate-end', `${translateEnd}%`);
+    marquee.style.setProperty('--duration', `${config.duration / config.multiplier}s`);
+
+    return true;
+}
+
 function initializeMarquee(config: MarqueeConfig = DEFAULT_CONFIG): boolean {
     try {
         if (!config.multiplier || config.multiplier < 2) {
@@ -33,32 +54,31 @@ function initializeMarquee(config: MarqueeConfig = DEFAULT_CONFIG): boolean {
             config.duration = DEFAULT_CONFIG.duration;
         }
 
-        const marquee: HTMLElement | null = document.querySelector(config.selector);
+        const marquees = document.querySelectorAll<HTMLElement>(config.selector);
 
-        if (!marquee) {
-            log('error', `Element with selector "${config.selector}" not found`);
+        if (!marquees.length) {
+            log('error', `No elements found with selector "${config.selector}"`);
             return false;
         }
 
-        const originalHTML: string = marquee.innerHTML;
-        if (!originalHTML.trim()) {
-            log('warn', 'Marquee element is empty');
-            return false;
-        }
+        let successCount = 0;
+        marquees.forEach((marquee, index) => {
+            // Allow per-instance overrides via data attributes
+            const instanceConfig = { ...config };
+            const dataMultiplier = marquee.dataset.multiplier;
+            const dataDuration = marquee.dataset.duration;
 
-        let duplicatedHTML: string = '';
-        for (let i = 0; i < config.multiplier; i++) {
-            duplicatedHTML += originalHTML;
-        }
+            if (dataMultiplier) instanceConfig.multiplier = parseInt(dataMultiplier, 10);
+            if (dataDuration) instanceConfig.duration = parseInt(dataDuration, 10);
 
-        marquee.innerHTML = duplicatedHTML;
+            if (initializeSingleMarquee(marquee, instanceConfig)) {
+                successCount++;
+                log('log', `Instance ${index + 1} initialized`);
+            }
+        });
 
-        const translateEnd = -100 / config.multiplier;
-        marquee.style.setProperty('--translate-end', `${translateEnd}%`);
-        marquee.style.setProperty('--duration', `${config.duration / config.multiplier}s`);
-
-        log('log', `Successfully initialized with multiplier: ${config.multiplier}, duration: ${config.duration}s`);
-        return true;
+        log('log', `${successCount}/${marquees.length} instances initialized`);
+        return successCount > 0;
     } catch (error: unknown) {
         if (error instanceof Error) {
             log('error', error.message);

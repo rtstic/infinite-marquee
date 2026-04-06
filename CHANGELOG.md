@@ -1,5 +1,11 @@
 # @fynd-design-engineering/cdn-starter
 
+## 0.0.4
+
+### Patch Changes
+
+- updated with safari optimisation
+
 ## 0.0.3
 
 ### Patch Changes
